@@ -10,7 +10,7 @@ export class WeatherController {
   @Post()
   async fetchWeather(
     @Body() fetchWeatherDto: FetchWeatherDto,
-  ): Promise<string> {
+  ) {
     return this.weatherService.fetchAndSaveWeather(
       fetchWeatherDto.lat,
       fetchWeatherDto.lon,

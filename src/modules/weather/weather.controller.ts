@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { WeatherService } from './services/weather.service';
 import { FetchWeatherDto } from './dto/fetch-weather.dto';
+import { GetWeatherDto } from './dto/get-weather.dto';
 
 @Controller('weather')
 export class WeatherController {
@@ -17,8 +18,12 @@ export class WeatherController {
   }
 
   @Get()
-  async getWeather(): Promise<string> {
-    return this.weatherService.getFromDb();
+  async getWeather(@Query() getWeatherDto: GetWeatherDto): Promise<string> {
+    return this.weatherService.getFromDb(
+      getWeatherDto.lat,
+      getWeatherDto.lon,
+      getWeatherDto.part,
+    );
   }
 
 };

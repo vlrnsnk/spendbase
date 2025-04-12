@@ -16,8 +16,8 @@ export class WeatherService {
     return `fetched and saved weather for lat: ${lat}, lon: ${lon}, part: ${part}`;
   }
 
-  async getFromDb() {
-    return 'get from db';
+  async getFromDb(lat: number, lon: number, part?: WeatherPart[]) {
+    return `get from db for lat: ${lat}, lon: ${lon}, part: ${part}`;
   }
 
 };

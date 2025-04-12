@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { databaseConfig } from './config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WeatherModule } from './modules/weather/weather.module';
+import { WeatherController } from './modules/weather/weather.controller';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { WeatherModule } from './modules/weather/weather.module';
     TypeOrmModule.forRoot(databaseConfig),
     WeatherModule,
   ],
-  controllers: [AppController],
+  controllers: [WeatherController],
   providers: [AppService],
 })
 export class AppModule {}

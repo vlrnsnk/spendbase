@@ -4,17 +4,19 @@ import { Weather } from '../entities/weather.entity';
 import { Repository } from 'typeorm';
 import { WeatherPart } from 'src/types/weather.types';
 import { OpenWeatherService } from './openweather.service';
+import { WeatherRepository } from '../weather.repository';
 
 @Injectable()
 export class WeatherService {
   constructor(
-    @InjectRepository(Weather)
-    private WeatherRepository: Repository<Weather>,
+    private weatherRepository: WeatherRepository,
     private openWeatherService: OpenWeatherService,
   ) {}
 
   async fetchAndSaveWeather(lat: number, lon: number, part?: WeatherPart[]) {
-    return this.openWeatherService.getWeatherData(lat, lon, part);
+    const weatherData = await this.openWeatherService.getWeatherData(lat, lon, part);
+
+    return this.weatherRepository.createWeatherRecord(lat, lon, part || [], weatherData);
   }
 
   async getFromDb(lat: number, lon: number, part?: WeatherPart[]) {

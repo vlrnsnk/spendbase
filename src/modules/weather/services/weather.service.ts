@@ -12,12 +12,8 @@ export class WeatherService {
     private WeatherRepository: Repository<Weather>,
   ) {}
 
-  async fetchAndSave() {
-    // const { data } = await axios.get('https://api.openweathermap.org/data/3.0/onecall', {
-    //   params: {},
-    // });
-
-    return 'fetched and saved weather';
+  async fetchAndSaveWeather(lat: number, lon: number, part?: string) {
+    return `fetched and saved weather for lat: ${lat}, lon: ${lon}, part: ${part}`;
   }
 
   async getFromDb() {

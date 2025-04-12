@@ -3,7 +3,6 @@ import { IsNumber, IsOptional, Max, Min } from 'class-validator';
 import { WEATHER_PARTS, WeatherPart } from 'src/types/weather.types';
 
 export class GetWeatherDto {
-
   @IsNumber()
   @Min(-90)
   @Max(90)
@@ -17,10 +16,10 @@ export class GetWeatherDto {
   lon: number;
 
   @IsOptional()
-  @Transform(
-    ({ value}) => value.split(',')
-      .filter((p: string) => WEATHER_PARTS.includes(p as WeatherPart))
+  @Transform(({ value }) =>
+    value
+      .split(',')
+      .filter((p: string) => WEATHER_PARTS.includes(p as WeatherPart)),
   )
   part?: WeatherPart[];
-
-};
+}

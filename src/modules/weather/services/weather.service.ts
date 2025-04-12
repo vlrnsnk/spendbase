@@ -6,7 +6,6 @@ import { WeatherPart } from 'src/types/weather.types';
 
 @Injectable()
 export class WeatherService {
-
   constructor(
     @InjectRepository(Weather)
     private WeatherRepository: Repository<Weather>,
@@ -19,5 +18,4 @@ export class WeatherService {
   async getFromDb(lat: number, lon: number, part?: WeatherPart[]) {
     return `get from db for lat: ${lat}, lon: ${lon}, part: ${part}`;
   }
-
-};
+}

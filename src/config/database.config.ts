@@ -6,9 +6,15 @@ import { Weather } from 'src/modules/weather/entities/weather.entity';
 dotenv.config();
 
 // Validate required environment variables
-const requiredEnvVars = ['DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE'];
+const requiredEnvVars = [
+  'DB_HOST',
+  'DB_PORT',
+  'DB_USERNAME',
+  'DB_PASSWORD',
+  'DB_DATABASE',
+];
 
-requiredEnvVars.forEach(envVar => {
+requiredEnvVars.forEach((envVar) => {
   if (!process.env[envVar] && process.env.NODE_ENV === 'production') {
     throw new Error(`Environment variable ${envVar} is missing`);
   }

@@ -11,7 +11,6 @@ import {
 import { WEATHER_PARTS, WeatherPart } from 'src/types/weather.types';
 
 export class FetchWeatherDto {
-
   @IsNumber()
   @Min(-90)
   @Max(90)
@@ -28,5 +27,4 @@ export class FetchWeatherDto {
   @ArrayMaxSize(5)
   @IsIn(WEATHER_PARTS, { each: true })
   part?: WeatherPart[];
-
-};
+}

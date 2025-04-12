@@ -5,11 +5,12 @@ import { GetWeatherDto } from './dto/get-weather.dto';
 
 @Controller('weather')
 export class WeatherController {
-
   constructor(private readonly weatherService: WeatherService) {}
 
   @Post()
-  async fetchWeather(@Body() fetchWeatherDto: FetchWeatherDto): Promise<string> {
+  async fetchWeather(
+    @Body() fetchWeatherDto: FetchWeatherDto,
+  ): Promise<string> {
     return this.weatherService.fetchAndSaveWeather(
       fetchWeatherDto.lat,
       fetchWeatherDto.lon,
@@ -25,5 +26,4 @@ export class WeatherController {
       getWeatherDto.part,
     );
   }
-
-};
+}

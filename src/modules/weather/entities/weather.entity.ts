@@ -21,7 +21,7 @@ export class Weather {
   @Column({
     type: 'decimal',
     precision: 6,
-    scale:  2,
+    scale: 2,
     comment: 'Longitude (-180.00 to 180.00)',
   })
   longitude: number;
@@ -30,7 +30,8 @@ export class Weather {
     type: 'varchar',
     length: 50,
     nullable: true,
-    comment: 'Excluded parts (comma separated: current, minutely, hourly, daily, alerts)',
+    comment:
+      'Excluded parts (comma separated: current, minutely, hourly, daily, alerts)',
   })
   exclude: string | null;
 

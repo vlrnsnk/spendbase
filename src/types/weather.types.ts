@@ -6,4 +6,4 @@ export const WEATHER_PARTS = [
   'alerts',
 ] as const;
 
-export type WeatherPart = typeof WEATHER_PARTS[number];
+export type WeatherPart = (typeof WEATHER_PARTS)[number];

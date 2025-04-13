@@ -1,6 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
-import { Weather } from 'src/modules/weather/entities/weather.entity';
 
 // Load environment variables
 dotenv.config();
@@ -22,14 +21,16 @@ requiredEnvVars.forEach((envVar) => {
 
 export const databaseConfig: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: process.env.DB_HOST || 'localhost',
+  host: process.env.DB_HOST || 'postgres',
   port: parseInt(process.env.DB_PORT ?? '5432', 10),
   username: process.env.DB_USERNAME || 'postgres',
   password: process.env.DB_PASSWORD || 'password',
   database: process.env.DB_DATABASE || 'spendbase',
-  entities: [Weather],
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
-  synchronize: process.env.NODE_ENV !== 'production',
+  synchronize: false,
   logging: process.env.NODE_ENV === 'development',
-  migrationsRun: process.env.NODE_ENV === 'production',
+  migrationsRun: true,
+  retryDelay: 5000,
+  retryAttempts: 10,
 };

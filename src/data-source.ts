@@ -13,5 +13,5 @@ export default new DataSource({
   database: process.env.DB_DATABASE || 'spendbase',
   entities: [Weather],
   migrations: ['src/migrations/*{.ts,.js}'],
-  synchronize: false,
+  synchronize: true,
 });

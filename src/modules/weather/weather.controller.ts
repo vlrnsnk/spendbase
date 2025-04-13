@@ -9,7 +9,7 @@ import {
 import { WeatherService } from './services/weather.service';
 import { FetchWeatherDto } from './dto/fetch-weather.dto';
 import { GetWeatherDto } from './dto/get-weather.dto';
-import { WeatherInterceptor } from 'src/common/interceptors/weather.interceptor';
+import { WeatherInterceptor } from '@/common/interceptors/weather.interceptor';
 
 @Controller('weather')
 export class WeatherController {
@@ -20,7 +20,7 @@ export class WeatherController {
     return this.weatherService.fetchAndSaveWeather(
       fetchWeatherDto.lat,
       fetchWeatherDto.lon,
-      fetchWeatherDto.part,
+      fetchWeatherDto.part ?? [],
     );
   }
 

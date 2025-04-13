@@ -36,51 +36,75 @@ describe('WeatherService', () => {
   });
 
   describe('fetchAndSaveWeather', () => {
-    const mockWeatherData = { current: { 
-      sunrise: 1744513397,
-      sunset: 1744562825,
-      temp: 2.26,
-      feels_like: -0.2,
-      pressure: 1018,
-      humidity: 94,
-      uvi: 0,
-      wind_speed: 2.35
-  } };
+    const mockWeatherData = {
+      current: {
+        sunrise: 1744513397,
+        sunset: 1744562825,
+        temp: 2.26,
+        feels_like: -0.2,
+        pressure: 1018,
+        humidity: 94,
+        uvi: 0,
+        wind_speed: 2.35,
+      },
+    };
 
     it('should fetch and save weather data', async () => {
       openWeatherService.getWeatherData.mockResolvedValue(mockWeatherData);
       weatherRepository.createWeatherRecord.mockResolvedValue({} as Weather);
 
-      await service.fetchAndSaveWeather(51.50, 31.28, ['hourly']);
+      await service.fetchAndSaveWeather(51.5, 31.28, ['hourly']);
 
-      expect(openWeatherService.getWeatherData).toHaveBeenCalledWith(51.50, 31.28, ['hourly']);
-      expect(weatherRepository.createWeatherRecord).toHaveBeenCalledWith(51.50, 31.28, ['hourly'], mockWeatherData);
+      expect(openWeatherService.getWeatherData).toHaveBeenCalledWith(
+        51.5,
+        31.28,
+        ['hourly'],
+      );
+      expect(weatherRepository.createWeatherRecord).toHaveBeenCalledWith(
+        51.5,
+        31.28,
+        ['hourly'],
+        mockWeatherData,
+      );
     });
 
     it('should handle empty parts array', async () => {
-      await service.fetchAndSaveWeather(51.50, 31.28);
-      expect(openWeatherService.getWeatherData).toHaveBeenCalledWith(51.50, 31.28, []);
+      await service.fetchAndSaveWeather(51.5, 31.28);
+      expect(openWeatherService.getWeatherData).toHaveBeenCalledWith(
+        51.5,
+        31.28,
+        [],
+      );
     });
   });
 
   describe('getWeatherFromDb', () => {
-    const mockRecord = { rawApiResponse: '{"current": { "sunrise": 1744513397, "sunset": 1744562825, "temp": 2.26, "feels_like": -0.2, "pressure": 1018, "humidity": 94, "uvi": 0, "wind_speed": 2.35 }}' } as Weather;
+    const mockRecord = {
+      rawApiResponse:
+        '{"current": { "sunrise": 1744513397, "sunset": 1744562825, "temp": 2.26, "feels_like": -0.2, "pressure": 1018, "humidity": 94, "uvi": 0, "wind_speed": 2.35 }}',
+    } as Weather;
 
     it('should return weather data when found', async () => {
       weatherRepository.findWeatherRecord.mockResolvedValue(mockRecord);
-      const result = await service.getWeatherFromDb(51.50, 31.28, ['hourly']);
+      const result = await service.getWeatherFromDb(51.5, 31.28, ['hourly']);
       expect(result).toEqual(mockRecord.rawApiResponse);
     });
 
     it('should throw NotFoundException when data is missing', async () => {
       weatherRepository.findWeatherRecord.mockResolvedValue(null);
-      await expect(service.getWeatherFromDb(51.50, 31.28, ['hourly'])).rejects.toThrow(NotFoundException);
+      await expect(
+        service.getWeatherFromDb(51.5, 31.28, ['hourly']),
+      ).rejects.toThrow(NotFoundException);
     });
 
     it('should pass empty array for parts when not provided', async () => {
       weatherRepository.findWeatherRecord.mockResolvedValue(mockRecord);
-      await service.getWeatherFromDb(51.50, 31.28);
-      expect(weatherRepository.findWeatherRecord).toHaveBeenCalledWith(51.50, 31.28, []);
+      await service.getWeatherFromDb(51.5, 31.28);
+      expect(weatherRepository.findWeatherRecord).toHaveBeenCalledWith(
+        51.5,
+        31.28,
+        [],
+      );
     });
   });
 });

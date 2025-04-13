@@ -8,7 +8,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { WEATHER_PARTS, WeatherPart } from 'src/types/weather.types';
+import { WEATHER_PARTS, WeatherPart } from '@/types/weather.types';
 
 export class FetchWeatherDto {
   @IsNumber()

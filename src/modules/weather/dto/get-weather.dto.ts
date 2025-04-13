@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsNumber, IsOptional, Max, Min } from 'class-validator';
+import { IsArray, IsIn, IsNumber, IsOptional, Max, Min } from 'class-validator';
 import { WEATHER_PARTS, WeatherPart } from 'src/types/weather.types';
 
 export class GetWeatherDto {
@@ -16,10 +16,14 @@ export class GetWeatherDto {
   lon: number;
 
   @IsOptional()
-  @Transform(({ value }) =>
-    value
-      .split(',')
-      .filter((p: string) => WEATHER_PARTS.includes(p as WeatherPart)),
-  )
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      return value.split(',').map(v => v.trim());
+    }
+
+    return value;
+  })
+  @IsArray()
+  @IsIn(WEATHER_PARTS, { each: true })
   part?: WeatherPart[];
 }

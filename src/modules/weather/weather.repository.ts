@@ -22,7 +22,7 @@ export class WeatherRepository {
       latitude: lat,
       longitude: lon,
       excludedParts: part.join(','),
-      rawApiResponse: data,
+      rawApiResponse: data as unknown as string,
     });
 
     return this.weatherRepository.save(weather);

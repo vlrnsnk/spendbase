@@ -98,5 +98,9 @@ describe('OpenWeatherService', () => {
 
       await expect(service.getWeatherData(51.50, 31.28, ['hourly'])).rejects.toThrow('API error');
     });
+
+    it('should reject invalid coordinates', async () => {
+      await expect(service.getWeatherData(100, 200)).rejects.toThrow();
+    });
   });
 });

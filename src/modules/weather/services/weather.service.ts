@@ -26,6 +26,6 @@ export class WeatherService {
       throw new NotFoundException('Weather data not found!');
     }
 
-    return weatherRecord.apiResponse;
+    return weatherRecord.rawApiResponse;
   }
 }

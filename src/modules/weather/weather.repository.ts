@@ -15,8 +15,8 @@ export class WeatherRepository {
     const weather = this.weatherRepository.create({
       latitude: lat,
       longitude: lon,
-      exclude: part.join(','),
-      apiResponse: data,
+      excludedParts: part.join(','),
+      rawApiResponse: data,
     });
 
     return this.weatherRepository.save(weather);
@@ -24,7 +24,7 @@ export class WeatherRepository {
 
   async findWeatherRecord(lat: number, lon: number, part: WeatherPart[]) {
     return this.weatherRepository.findOne({
-      where: { latitude: lat, longitude: lon, exclude: part.toString() },
+      where: { latitude: lat, longitude: lon, excludedParts: part.toString() },
       order: { createdAt: 'DESC' },
     });
   }

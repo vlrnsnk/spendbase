@@ -27,20 +27,23 @@ export class Weather {
   longitude: number;
 
   @Column({
+    name: 'excluded_parts',
     type: 'varchar',
     length: 50,
     nullable: true,
     comment:
       'Excluded parts (comma separated: current, minutely, hourly, daily, alerts)',
   })
-  exclude: string | null;
+  excludedParts: string | null;
 
   @Column('jsonb', {
+    name: 'raw_api_response',
     comment: 'Complete API response data',
   })
-  apiResponse: any;
+  rawApiResponse: any;
 
   @CreateDateColumn({
+    name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })

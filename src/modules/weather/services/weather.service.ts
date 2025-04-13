@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Weather } from '../entities/weather.entity';
 import { Repository } from 'typeorm';
@@ -23,7 +23,7 @@ export class WeatherService {
     const weatherRecord = await this.weatherRepository.findWeatherRecord(lat, lon, part || []);
 
     if (!weatherRecord) {
-      throw new Error('Weather data not found!');
+      throw new NotFoundException('Weather data not found!');
     }
 
     return weatherRecord.apiResponse;

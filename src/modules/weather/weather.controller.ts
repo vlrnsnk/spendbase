@@ -20,10 +20,10 @@ export class WeatherController {
 
   @Get()
   async getWeather(@Query() getWeatherDto: GetWeatherDto): Promise<string> {
-    return this.weatherService.getFromDb(
+    return this.weatherService.getWeatherFromDb(
       getWeatherDto.lat,
       getWeatherDto.lon,
-      getWeatherDto.part,
+      getWeatherDto.part || [],
     );
   }
 }

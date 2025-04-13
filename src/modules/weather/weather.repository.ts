@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, W } from 'typeorm';
 import { Weather } from './entities/weather.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WeatherPart } from 'src/types/weather.types';
@@ -20,5 +20,12 @@ export class WeatherRepository {
     });
 
     return this.weatherRepository.save(weather);
+  }
+
+  async findWeatherRecord(lat: number, lon: number, part: WeatherPart[]) {
+    return this.weatherRepository.findOne({
+      where: { latitude: lat, longitude: lon, exclude: part.toString() },
+      order: { createdAt: 'DESC' },
+    });
   }
 }

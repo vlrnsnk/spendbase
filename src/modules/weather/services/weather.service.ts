@@ -19,7 +19,13 @@ export class WeatherService {
     return this.weatherRepository.createWeatherRecord(lat, lon, part || [], weatherData);
   }
 
-  async getFromDb(lat: number, lon: number, part?: WeatherPart[]) {
-    return `get from db for lat: ${lat}, lon: ${lon}, part: ${part}`;
+  async getWeatherFromDb(lat: number, lon: number, part?: WeatherPart[]) {
+    const weatherRecord = await this.weatherRepository.findWeatherRecord(lat, lon, part || []);
+
+    if (!weatherRecord) {
+      throw new Error('Weather data not found!');
+    }
+
+    return weatherRecord.apiResponse;
   }
 }

@@ -21,6 +21,19 @@ Edit the `.env` file with your OpenWeatherMap API key.
 docker-compose up --build
 ```
 
+## API Documentation (Swagger UI)
+
+After starting the application, access the interactive API documentation at:
+```
+http://localhost:3000/api/v1/docs
+```
+
+### Features:
+- Full documentation of all endpoints
+- Try-it-out functionality to test API calls directly
+- Schema definitions for all request/response formats
+- Multi-select interface for weather parts parameter
+
 ## API Endpoints
 
 ### 1. Fetch and Store Weather Data
@@ -64,7 +77,7 @@ To connect to PostgreSQL directly:
 docker-compose exec postgres psql -U postgres -d spendbase
 ```
 
-## Running Tests (Optional)
+## Running Tests
 ```bash
 docker-compose exec app npm run test
 ```
@@ -74,11 +87,6 @@ docker-compose exec app npm run test
 - `src/config` - Configuration files
 - `src/migrations` - Database migrations
 - `test` - Unit tests
-
-## Stopping the Project
-```bash
-docker-compose down
-```
 
 ## Workflow Explanation
 
@@ -90,4 +98,8 @@ docker-compose up --build
 ### Subsequent starts (when containers already exist):
 ```bash
 docker-compose up
+```
+### Stopping the containers:
+```bash
+docker-compose down
 ```

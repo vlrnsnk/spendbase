@@ -10,6 +10,11 @@ import { WeatherRepository } from './weather.repository';
 @Module({
   imports: [TypeOrmModule.forFeature([Weather])],
   controllers: [WeatherController],
-  providers: [ConfigService, WeatherService, OpenWeatherService, WeatherRepository],
+  providers: [
+    ConfigService,
+    WeatherService,
+    OpenWeatherService,
+    WeatherRepository,
+  ],
 })
 export class WeatherModule {}

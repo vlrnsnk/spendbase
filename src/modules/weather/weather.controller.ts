@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, Query, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { WeatherService } from './services/weather.service';
 import { FetchWeatherDto } from './dto/fetch-weather.dto';
 import { GetWeatherDto } from './dto/get-weather.dto';
@@ -9,9 +16,7 @@ export class WeatherController {
   constructor(private readonly weatherService: WeatherService) {}
 
   @Post()
-  async fetchWeather(
-    @Body() fetchWeatherDto: FetchWeatherDto,
-  ) {
+  async fetchWeather(@Body() fetchWeatherDto: FetchWeatherDto) {
     return this.weatherService.fetchAndSaveWeather(
       fetchWeatherDto.lat,
       fetchWeatherDto.lon,

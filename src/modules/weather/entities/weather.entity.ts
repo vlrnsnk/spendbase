@@ -40,7 +40,7 @@ export class Weather {
     name: 'raw_api_response',
     comment: 'Complete API response data',
   })
-  rawApiResponse: any;
+  rawApiResponse: string;
 
   @CreateDateColumn({
     name: 'created_at',

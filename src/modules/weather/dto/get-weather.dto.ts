@@ -6,19 +6,19 @@ export class GetWeatherDto {
   @IsNumber()
   @Min(-90)
   @Max(90)
-  @Transform(({ value }) => parseFloat(value))
+  @Transform(({ value }: { value: string }) => parseFloat(value))
   lat: number;
 
   @IsNumber()
   @Min(-180)
   @Max(180)
-  @Transform(({ value }) => parseFloat(value))
+  @Transform(({ value }: { value: string }) => parseFloat(value))
   lon: number;
 
   @IsOptional()
-  @Transform(({ value }) => {
+  @Transform(({ value }: { value: string | string[] }) => {
     if (typeof value === 'string') {
-      return value.split(',').map(v => v.trim());
+      return value.split(',').map((v) => v.trim());
     }
 
     return value;

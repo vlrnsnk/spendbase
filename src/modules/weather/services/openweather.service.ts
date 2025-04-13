@@ -2,17 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { WeatherPart } from 'src/types/weather.types';
+import { OpenWeatherResponse } from '../interfaces/openweather-response.interface';
 
 @Injectable()
 export class OpenWeatherService {
   private readonly apiKey: string;
-  private readonly baseUrl: string = 'https://api.openweathermap.org/data/3.0/onecall';
+  private readonly baseUrl: string =
+    'https://api.openweathermap.org/data/3.0/onecall';
 
   constructor(private configService: ConfigService) {
     this.apiKey = this.configService.get<string>('OPENWEATHER_API_KEY') || '';
   }
 
-  async getWeatherData(lat: number, lon: number, part?: WeatherPart[]) {
+  async getWeatherData(
+    lat: number,
+    lon: number,
+    part?: WeatherPart[],
+  ): Promise<OpenWeatherResponse> {
     const params = {
       lat,
       lon,
@@ -21,7 +27,9 @@ export class OpenWeatherService {
       units: 'metric',
     };
 
-    const response = await axios.get(this.baseUrl, { params });
+    const response = await axios.get<OpenWeatherResponse>(this.baseUrl, {
+      params,
+    });
 
     return response.data;
   }

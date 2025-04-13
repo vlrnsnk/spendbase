@@ -1,8 +1,9 @@
 export const WEATHER_PARTS = [
-  'current',
-  'minutely',
-  'hourly',
+  // TODO: need to figure out how to handle 'current'
+  // 'current',
   'daily',
+  'hourly',
+  'minutely',
   'alerts',
 ] as const;
 

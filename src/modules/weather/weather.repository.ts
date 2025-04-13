@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Repository, W } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Weather } from './entities/weather.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WeatherPart } from 'src/types/weather.types';
+import { OpenWeatherResponse } from './interfaces/openweather-response.interface';
 
 @Injectable()
 export class WeatherRepository {
@@ -11,7 +12,12 @@ export class WeatherRepository {
     private weatherRepository: Repository<Weather>,
   ) {}
 
-  async createWeatherRecord(lat: number, lon: number, part: WeatherPart[], data: any) {
+  async createWeatherRecord(
+    lat: number,
+    lon: number,
+    part: WeatherPart[],
+    data: OpenWeatherResponse,
+  ) {
     const weather = this.weatherRepository.create({
       latitude: lat,
       longitude: lon,

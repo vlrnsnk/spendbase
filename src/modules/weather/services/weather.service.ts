@@ -15,7 +15,7 @@ export class WeatherService {
     const weatherData = await this.openWeatherService.getWeatherData(
       lat,
       lon,
-      part,
+      part || [],
     );
 
     return this.weatherRepository.createWeatherRecord(

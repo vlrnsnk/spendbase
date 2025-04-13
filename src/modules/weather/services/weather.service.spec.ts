@@ -55,11 +55,13 @@ describe('WeatherService', () => {
 
       await service.fetchAndSaveWeather(51.5, 31.28, ['hourly']);
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(openWeatherService.getWeatherData).toHaveBeenCalledWith(
         51.5,
         31.28,
         ['hourly'],
       );
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(weatherRepository.createWeatherRecord).toHaveBeenCalledWith(
         51.5,
         31.28,
@@ -70,6 +72,7 @@ describe('WeatherService', () => {
 
     it('should handle empty parts array', async () => {
       await service.fetchAndSaveWeather(51.5, 31.28);
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(openWeatherService.getWeatherData).toHaveBeenCalledWith(
         51.5,
         31.28,
@@ -100,6 +103,7 @@ describe('WeatherService', () => {
     it('should pass empty array for parts when not provided', async () => {
       weatherRepository.findWeatherRecord.mockResolvedValue(mockRecord);
       await service.getWeatherFromDb(51.5, 31.28);
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(weatherRepository.findWeatherRecord).toHaveBeenCalledWith(
         51.5,
         31.28,

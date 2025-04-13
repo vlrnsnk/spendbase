@@ -55,6 +55,7 @@ describe('OpenWeatherService', () => {
 
       await service.getWeatherData(51.5, 31.28, ['hourly']);
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(mockedAxios.get).toHaveBeenCalledWith(
         'https://api.openweathermap.org/data/3.0/onecall',
         {
@@ -74,9 +75,11 @@ describe('OpenWeatherService', () => {
 
       await service.getWeatherData(51.5, 31.28);
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(mockedAxios.get).toHaveBeenCalledWith(
         expect.anything(),
         expect.objectContaining({
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           params: expect.not.objectContaining({ exclude: expect.anything() }),
         }),
       );

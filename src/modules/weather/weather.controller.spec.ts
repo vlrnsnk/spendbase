@@ -3,6 +3,7 @@ import { WeatherService } from './services/weather.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { FetchWeatherDto } from './dto/fetch-weather.dto';
 import { GetWeatherDto } from './dto/get-weather.dto';
+import { Weather } from '@/modules/weather/entities/weather.entity';
 
 describe('WeatherController', () => {
   let controller: WeatherController;
@@ -34,10 +35,11 @@ describe('WeatherController', () => {
         part: ['hourly'],
       };
 
-      weatherService.fetchAndSaveWeather.mockResolvedValue({} as any);
+      weatherService.fetchAndSaveWeather.mockResolvedValue({} as Weather);
 
       await controller.fetchWeather(dto);
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(weatherService.fetchAndSaveWeather).toHaveBeenCalledWith(
         51.5,
         31.28,
@@ -53,6 +55,7 @@ describe('WeatherController', () => {
 
       await controller.fetchWeather(dto);
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(weatherService.fetchAndSaveWeather).toHaveBeenCalledWith(
         51.5,
         31.28,
@@ -105,6 +108,7 @@ describe('WeatherController', () => {
         lon: 31.28,
       } as GetWeatherDto);
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(weatherService.getWeatherFromDb).toHaveBeenCalledWith(
         51.5,
         31.28,
@@ -121,6 +125,7 @@ describe('WeatherController', () => {
         part: ['hourly'],
       });
 
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(weatherService.getWeatherFromDb).toHaveBeenCalledWith(
         51.5,
         31.28,

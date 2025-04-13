@@ -10,19 +10,22 @@ export class OpenWeatherService {
   private readonly baseUrl: string =
     'https://api.openweathermap.org/data/3.0/onecall';
 
-  constructor(private configService: ConfigService) {
-    this.apiKey = this.configService.get<string>('OPENWEATHER_API_KEY') || '';
-  }
+  constructor(private configService: ConfigService) {}
 
   async getWeatherData(
     lat: number,
     lon: number,
     part?: WeatherPart[],
   ): Promise<OpenWeatherResponse> {
+    const apiKey = this.configService.get<string>('OPENWEATHER_API_KEY');
+
+    if (!apiKey) {
+      throw new Error('OPENWEATHER_API_KEY is not defined');
+    }
     const params = {
       lat,
       lon,
-      appid: this.apiKey,
+      appid: apiKey,
       exclude: part?.join(','),
       units: 'metric',
     };
